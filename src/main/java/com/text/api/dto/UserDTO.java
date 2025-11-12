@@ -34,6 +34,6 @@ public class UserDTO {
 
 	public String setName(String name){
 		this.name = name;
-	
+	}
 	
 }
