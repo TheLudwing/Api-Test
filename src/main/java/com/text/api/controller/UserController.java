@@ -1,4 +1,7 @@
-package com.text.api.controller;
+@CrossOrigin(origins = {
+    "http://127.0.0.1:5500",
+    "https://test-homo.vercel.app"
+})package com.text.api.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +22,10 @@ import com.text.api.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://127.0.0.1:5500",
-						"https://test-homo.vercel.app")
+@CrossOrigin(origins = {
+    "http://127.0.0.1:5500",
+    "https://test-homo.vercel.app"
+})
 public class UserController {
 
 	@Autowired
