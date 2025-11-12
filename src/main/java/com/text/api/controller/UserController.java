@@ -20,7 +20,7 @@ import com.text.api.services.UserService;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://127.0.0.1:5500",
-						"https://test-homo.versel.app")
+						"https://test-homo.vercel.app")
 public class UserController {
 
 	@Autowired
