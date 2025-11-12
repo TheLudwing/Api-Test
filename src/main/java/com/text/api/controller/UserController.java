@@ -1,7 +1,4 @@
-@CrossOrigin(origins = {
-    "http://127.0.0.1:5500",
-    "https://test-homo.vercel.app"
-})package com.text.api.controller;
+package com.text.api.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
