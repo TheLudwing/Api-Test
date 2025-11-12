@@ -28,11 +28,11 @@ public class UserDTO {
 		return this.name;
 	}
 
-	public float setTest(float test){
+	public void setTest(float test){
 		this.test = test;
 	}
 
-	public String setName(String name){
+	public void setName(String name){
 		this.name = name;
 	}
 	
