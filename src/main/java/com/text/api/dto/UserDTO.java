@@ -17,5 +17,23 @@ public class UserDTO {
 	private String name;
 	
 	private float test;
+
+
+
+	public float getTest(){
+		return this.test;
+	}
+
+	public String getName(){
+		return this.name;
+	}
+
+	public float setTest(float test){
+		this.test = test;
+	}
+
+	public String setName(String name){
+		this.name = name;
+	
 	
 }
