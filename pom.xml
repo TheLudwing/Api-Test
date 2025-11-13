@@ -120,7 +120,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.text.api.TestHomoApplication</mainClass>
+          <mainClass>com.text.api.BackTestHomoApplication</mainClass>
         </configuration>
       </plugin>
 
