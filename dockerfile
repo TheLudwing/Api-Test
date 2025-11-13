@@ -2,9 +2,9 @@
 
 
 
-FROM openjdk:17-slim
-
+FROM eclipse-temurin:17-jre
+WORKDIR /app
 COPY --from=build /app/target/TestHomo-0.0.1-SNAPSHOT.jar app.jar
-COPY data/miapp.db ./data/miapp.db
+COPY db/miapp.db ./db/miapp.db
 EXPOSE 8080
-CMD["java", "-jar","/app/target/TestHomo-0.0.1-SNAPSHOT.jar app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
