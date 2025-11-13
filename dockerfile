@@ -13,9 +13,9 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 # copia el jar ejecutable
-COPY --from=build /app/target/TestHomo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build src/target/TestHomo-0.0.1-SNAPSHOT.jar app.jar
 # copia la base de datos (ajusta la ruta si tu .db está en otro lado)
-COPY --from=build /app/data/miapp.db ./data/miapp.db
+COPY --from=build data/miapp.db ./data/miapp.db
 # expón el puerto que usa Spring Boot
 EXPOSE 8080
 # arranca el jar
