@@ -3,6 +3,7 @@ package com.text.api.dto;
 public class UserRequest {
 
 	   private String name;
+	   private float test;
 
 	    // Constructor vacío (necesario para Spring)
 	    public UserRequest() {}
@@ -21,7 +22,9 @@ public class UserRequest {
 	        this.name = name;
 	    }
 	
-	
+		public float getTest(){
+			return this.test;
+		}
 	
 	
 }

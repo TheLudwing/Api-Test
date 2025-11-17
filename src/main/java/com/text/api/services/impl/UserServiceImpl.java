@@ -30,24 +30,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDTO addUser(String name) {
 		User usuarioGuardado ;
-		/*Optional<User> u = repository.findByName(name);
-		User user = new User();
-
-		if(u.isPresent()) {
-			user = u.get();
-			return mapper.toDTO(user);
-		}else {
-			user.setName(name);
-			try {
-				user.setTest(Float.parseFloat(num.generarNumeroUnico()));
-			}catch(Exception e){
-				user.setTest(0.0f);
-				System.out.println("Fallo al generar el numero aleatorio");
-			}
-			
-			repository.save(user);
-			return mapper.toDTO(user);
-		}*/
 		
 		Optional<User> u = repository.findByName(name);
 	    
@@ -65,7 +47,30 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	
-	
+	   @Override
+    public UserDTO updateUser(UserDTO user){
+        if (user == null || user.getName() == null || user.getName().isBlank()) {
+            throw new IllegalArgumentException("name is required");
+        }
+
+        // Buscar existente para conservar id y otros campos
+        UserDTO existingDto = findByName(user.getName());
+        if (existingDto == null) {
+            throw new IllegalArgumentException("user not found");
+        }
+
+		// mapear entidad existente (contiene id), aplicar cambios y guardar
+		User entity = mapper.toEntity(existingDto);
+		entity.setTest(user.getTest());
+		User saved = repository.save(entity);
+
+		// devolver DTO mapeado desde entidad guardada
+		return mapper.toDTO(saved);
+    }
+
+
+
+	@Override
 	public List<UserDTO> getUsers(){
 		List<User> users = repository.findAll();
 		
@@ -77,11 +82,32 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	
+	@Override
+	public UserDTO findByName(String name){
+		List<UserDTO> users = getUsers();
+		UserDTO user = null;
+		for(UserDTO u: users){
+			if(u.getName().equals(name)){
+				user = u;
+			}
+		}
+		return user;
+	}
 	
-	
-	
-	
-	
+	@Override
+	public boolean deleteByName(String name){
+		UserDTO u = findByName(name);
+		if(u!=null){
+			repository.deleteById(u.getId());
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void deleteAll() {
+		repository.deleteAll();
+	}
 	
 	
 	

@@ -6,8 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +52,45 @@ public class UserController {
 			return ResponseEntity.ok(users);
 		}
 	  
-	  
-	  
-	
+
+		    @PutMapping("/modify")
+      public ResponseEntity<UserDTO> modificarUsuario(@RequestBody UserRequest request){
+        String name = request.getName();
+        if (name == null || name.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        UserDTO existing = service.findByName(name);
+        if (existing == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // actualizar solo el campo test (preservar id y name)
+        existing.setTest(request.getTest());
+        UserDTO updated = service.updateUser(existing);
+
+        return ResponseEntity.ok(updated);
+      }
+
+
+	@DeleteMapping("/{name}")
+	public ResponseEntity<Void> eliminarUsuario(@PathVariable String name) {
+		if(name == null || name.isBlank()){
+			return ResponseEntity.badRequest().build();
+		}
+		boolean deleted = service.deleteByName(name);
+		if(deleted){
+			return ResponseEntity.noContent().build();
+		}else{
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+
+	@DeleteMapping("/all")
+	public ResponseEntity<Void> eliminarTodosUsuarios() {
+		service.deleteAll();
+		return ResponseEntity.noContent().build();
+	}
+
 }
